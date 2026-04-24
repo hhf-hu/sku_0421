@@ -1,0 +1,14 @@
+open_clip_torch
+deepspeed
+modelscope
+scikit-learn
+pandas
+numpy
+matplotlib
+seaborn
+transformers
+aiofiles
+fastapi
+uvicorn
+python-multipart
+accelerate

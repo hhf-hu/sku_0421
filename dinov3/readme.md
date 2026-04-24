@@ -1,0 +1,2 @@
+accelerate launch --num_processes=2  accelerator_deepspeed_sku_dionv3.py
+deepspeed --num_gpus 8  deepspeed_sku_dionv3_contrastive_loss.py[dinov3-vith16plus-pretrain-lvd1689m_similarity_jojo_data-0113-1.npy](../matrix/dinov3-vith16plus-pretrain-lvd1689m_similarity_jojo_data-0113-1.npy)

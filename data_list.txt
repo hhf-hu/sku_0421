@@ -1,0 +1,8 @@
+image,label,train/val/test
+/Users/vincent/workspace/sku/Unit0001,snoopy_cupsleeve_sku1_BY_Unit1,train
+/Users/vincent/workspace/sku/Unit0001,snoopy_cupsleeve_sku1_BY_Unit2,val
+/Users/vincent/workspace/sku/Unit0001,snoopy_cupsleeve_sku1_BY_Unit3,test
+/Users/vincent/workspace/sku/Unit0001,snoopy_cupsleeve_sku1_BY_Unit1,test
+/Users/vincent/workspace/sku/Unit0001,snoopy_cupsleeve_sku1_BY_Unit2,train
+/Users/vincent/workspace/sku/Unit0001,snoopy_cupsleeve_sku1_BY_Unit3,val
+

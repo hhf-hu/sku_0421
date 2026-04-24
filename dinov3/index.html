@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>图片标注 UI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #toolbar {
+      margin-bottom: 10px;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      cursor: crosshair;
+    }
+  </style>
+</head>
+<body>
+  <h2>图片标注工具（画框标注）</h2>
+
+  <div id="toolbar">
+    <input type="file" id="imageLoader" accept="image/*" />
+    <button onclick="clearBoxes()">清空标注</button>
+    <button onclick="exportBoxes()">导出标注</button>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <pre id="output"></pre>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const imageLoader = document.getElementById('imageLoader');
+
+    let img = new Image();
+    let boxes = [];
+    let startX, startY;
+    let isDrawing = false;
+
+    imageLoader.addEventListener('change', e => {
+      const reader = new FileReader();
+      reader.onload = event => {
+        img.onload = () => {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          redraw();
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    });
+
+    canvas.addEventListener('mousedown', e => {
+      startX = e.offsetX;
+      startY = e.offsetY;
+      isDrawing = true;
+    });
+
+    canvas.addEventListener('mousemove', e => {
+      if (!isDrawing) return;
+      redraw();
+      const w = e.offsetX - startX;
+      const h = e.offsetY - startY;
+      ctx.strokeStyle = 'red';
+      ctx.strokeRect(startX, startY, w, h);
+    });
+
+    canvas.addEventListener('mouseup', e => {
+      if (!isDrawing) return;
+      isDrawing = false;
+      const w = e.offsetX - startX;
+      const h = e.offsetY - startY;
+      boxes.push({ x: startX, y: startY, width: w, height: h });
+      redraw();
+    });
+
+    function redraw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+      ctx.strokeStyle = 'red';
+      boxes.forEach(b => ctx.strokeRect(b.x, b.y, b.width, b.height));
+    }
+
+    function clearBoxes() {
+      boxes = [];
+      redraw();
+      document.getElementById('output').textContent = '';
+    }
+
+    function exportBoxes() {
+      document.getElementById('output').textContent = JSON.stringify(boxes, null, 2);
+    }
+  </script>
+</body>
+</html>
